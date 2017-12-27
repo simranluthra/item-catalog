@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>restaurants</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <div class = "pane">
+      <div class = "header">
+      <h1> {{restaurant.name}}</h1>
+      {%if 'username' not in session %}
+  <a href="{{url_for('showLogin')}}">Click Here to Login </a>
+  {% else %}
+  <a href="{{url_for('gdisconnect')}}">Logout </a>
+  {% endif %}
+      <br>
+      </div>
+    <div class = "flash">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+      {% for message in messages %}
+      <li> <strong> {{ message }} </strong> </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    </div>
+    <a href='{{url_for('newMenuItem', restaurant_id = restaurant.id)}}'>Create new menu</a>
+    <br><br>
+  {% for items in items %}
+  <div class = "namePrice">
+  <span class = "name"><p>{{items.name}}</p></span>
+  <br>
+  <div class="description">
+    <span class = "description"><p>{{items.description}}</p></span>
+
+ </div>
+ <br><br>
+      <span class = "price"><p>{{items.price}}</p></span>
+<br>
+
+      <span class = "course"><p>{{items.course}}</p></span>
+<br>
+        </div>
+
+      <div class = "editdeletepane">
+      <a href='{{url_for('editMenuItem', restaurant_id = restaurant.id, menu_id=items.id )}}'>Edit</a>
+      <br>
+        <a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id=items.id )}}'>Delete</a>
+      <br>
+      <br>
+    </div>
+      {% endfor %}
+
+{% for restaurant in restaurants %}
+  <p>{{ restaurant.name }}<p>
+{% endfor %}
+</div>
+
+  </body>
+</html>

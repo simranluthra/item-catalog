@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Restaurants</h1>
+			<br>
+
+			<a href = "{{url_for('newrestaurant')}}"><u>Create New Restaurant</u></a>
+			<br><br>
+			{% include "header.html" %}
+			<br><br>
+			<div class = 'flash'>
+					      {% with messages = get_flashed_messages() %}
+			      {% if messages %}
+
+			        <ul>
+			        {% for message in messages %}
+			            <li> <strong> {{ message }} </strong> </li>
+			        {% endfor %}
+			        </ul>
+			        {% endif %}
+			    {% endwith %}
+
+			</div>
+			<div class = 'pane'>
+			{% for restaurant in restaurants %}
+			<a href = "{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}">{{restaurant.name}}</a>
+			<div>
+			<a href = "{{url_for('editrestaurant',restaurant_id = restaurant.id)}}">Edit </a>
+			|
+			<a href = "{{url_for('deleterestaurant',restaurant_id = restaurant.id)}}">Delete </a>
+			<hr>
+			</div>
+
+
+			{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>
