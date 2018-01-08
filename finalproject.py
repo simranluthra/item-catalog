@@ -302,7 +302,7 @@ def editMenuItem(restaurant_id, menu_id):
                 edit menu items to this restaurant. Please create your own \
                 restaurant in order to edit items.');}</script><body \
                 onload='myFunction()'>"
-     if request.method == 'POST':
+    if request.method == 'POST':
        if request.form['name']:
            editedItem.name = request.form['name']
            editedItem.description = request.form['description']
@@ -312,7 +312,7 @@ def editMenuItem(restaurant_id, menu_id):
            session.commit()
            flash("Menu Item has been edited")
        return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
-     else:
+    else:
        return render_template('editmenuitem.html',
                                restaurant_id=restaurant_id,
                                Menu_id=menu_id, items=editedItem)
